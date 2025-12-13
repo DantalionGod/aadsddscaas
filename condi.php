@@ -1,19 +1,7 @@
 <?php
-// curl-runner.php
 @ini_set('display_errors', 1);
 @error_reporting(E_ALL);
 @set_time_limit(0);
-
-// ====== CONFIG DE SEGURANÇA ======
-$ALLOWED_IPS = ['127.0.0.1', '::1']; // adicione seu IP aqui
-$clientIp = $_SERVER['REMOTE_ADDR'] ?? '';
-
-if (!in_array($clientIp, $ALLOWED_IPS, true)) {
-    http_response_code(403);
-    exit('Forbidden');
-}
-
-// =================================
 
 $output = '';
 $error  = '';
@@ -24,11 +12,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($cmd !== '') {
 
-        // Segurança básica: só permitir comandos que comecem com curl
+        // mantém apenas a validação mínima: precisa começar com curl
         if (!preg_match('/^\s*curl\s+/i', $cmd)) {
             $error = "Comando inválido. Apenas curl é permitido.";
         } else {
-            // Executa capturando stdout + stderr
+
             $descriptorSpec = [
                 1 => ['pipe', 'w'], // stdout
                 2 => ['pipe', 'w'], // stderr
